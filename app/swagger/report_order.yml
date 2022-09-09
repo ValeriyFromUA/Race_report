@@ -1,0 +1,13 @@
+parameters:
+  - name: order
+    description: 'return data in "asc" or "desc" order'
+    in: path
+    type: string
+    enum: [ 'asc', 'desc' ]
+    required: true
+    default: 'asc'
+responses:
+  200:
+    description: 'return data in "asc" or "desc" order'
+    schema:
+      $ref: '/api/v2/report'

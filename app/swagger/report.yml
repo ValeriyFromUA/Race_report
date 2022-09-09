@@ -1,0 +1,10 @@
+parameters:
+  - name: order
+    description: 'return data in "asc" order by default'
+    in: path
+    default: 'asc'
+responses:
+  200:
+    description: 'return data in "asc" order by default'
+    schema:
+      $ref: '/api/v2/report'

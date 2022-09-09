@@ -1,0 +1,13 @@
+parameters:
+  - name: driver
+    description: 'returning one driver`s data'
+    in: path
+    type: string
+    enum: [ 'Kevin Magnussen', 'Brendon Hartley' ]
+    required: false
+    default: 'Brendon Hartley'
+responses:
+  200:
+    description: 'returning one driver`s data'
+    schema:
+      $ref: '/api/v1/report/order=asc/driver=<string:driver>'
