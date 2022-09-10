@@ -33,11 +33,9 @@ def create_db_report():
     with db:
         db.create_tables([ReportModel])
         ReportModel.insert_many(data).execute()
-    print('Done_report')
     with db:
         db.create_tables([ResultsModel])
         ResultsModel.insert_many(preparing_start_end_data()).execute()
-    print('Done_results')
 
 
 # converting db file to list
