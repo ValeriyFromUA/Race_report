@@ -13,8 +13,8 @@ path = Path(APP_FOLDER / DATA_FOLDER_IN_APP)
 data = build_report(path)[1]
 
 
-# getting start/end time data, preparing to insert into database
 def preparing_start_end_data():
+    """getting start/end time data, preparing to insert into database"""
     start_end = {}
     start_end_list = []
     for key in get_abbr_and_time_data(path, START):
@@ -28,8 +28,8 @@ def preparing_start_end_data():
     return start_end_list
 
 
-# Creating DB and Adding data
 def create_db_report():
+    """Creating DB and Adding data"""
     with db:
         db.create_tables([ReportModel])
         ReportModel.insert_many(data).execute()
@@ -38,8 +38,8 @@ def create_db_report():
         ResultsModel.insert_many(preparing_start_end_data()).execute()
 
 
-# converting db file to list
 def create_report_from_db():
+    """converting db file to list"""
     data_list = []
     query = ReportModel.select()
     for driver in query:

@@ -1,24 +1,11 @@
 import unittest
 from peewee import SqliteDatabase
 from app.models_report import ReportModel, ResultsModel
-from functools import wraps
 from app.report_DB import app
 
 MODELS = (ReportModel, ResultsModel)
 
-
-def use_test_db(method):
-    @wraps(method)
-    def inner(self):
-        test_db = SqliteDatabase(':memory:')
-        with test_db.bind_ctx(MODELS):
-            test_db.create_tables(MODELS)
-            try:
-                method(self)
-            finally:
-                test_db.drop_tables(MODELS)
-
-    return inner
+test_db = SqliteDatabase(':memory:')
 
 
 class ReportDBTest(unittest.TestCase):
@@ -27,9 +14,17 @@ class ReportDBTest(unittest.TestCase):
         app.testing = True
         self.client = app.test_client()
 
-    @use_test_db
+        test_db.bind(MODELS, bind_refs=False, bind_backrefs=False)
+
+        test_db.connect()
+        test_db.create_tables(MODELS)
+
+    def tearDown(self):
+        test_db.drop_tables(MODELS)
+        test_db.close()
+
     def test_report(self):
-        # src.report.monaco (converting_data.py) sorted the report by lap time
+        """src.report.monaco (converting_data.py) sorted the report by lap time"""
         data = [
             {'abbr': 'SSW', 'name': 'Sergey Sirotkin', 'team': 'WILLIAMS MERCEDES', 'lap_time': '00:04:47.294000'},
             {'abbr': 'EOF', 'name': 'Esteban Ocon', 'team': 'FORCE INDIA MERCEDES', 'lap_time': '00:05:46.972000'},
@@ -47,9 +42,8 @@ class ReportDBTest(unittest.TestCase):
                 ['Lewis Hamilton', 'MERCEDES', '00:06:47.540000'],
             ])
 
-    @use_test_db
     def test_report_asc(self):
-        # src.report.monaco (converting_data.py) sorted the report by lap time
+        """src.report.monaco (converting_data.py) sorted the report by lap time"""
         data = [
             {'abbr': 'SSW', 'name': 'Sergey Sirotkin', 'team': 'WILLIAMS MERCEDES', 'lap_time': '00:04:47.294000'},
             {'abbr': 'EOF', 'name': 'Esteban Ocon', 'team': 'FORCE INDIA MERCEDES', 'lap_time': '00:05:46.972000'},
@@ -66,9 +60,8 @@ class ReportDBTest(unittest.TestCase):
                 ['Esteban Ocon', 'FORCE INDIA MERCEDES', '00:05:46.972000'],
                 ['Lewis Hamilton', 'MERCEDES', '00:06:47.540000'], ])
 
-    @use_test_db
     def test_report_desc(self):
-        # src.report.monaco (converting_data.py) sorted the report by lap time
+        """src.report.monaco (converting_data.py) sorted the report by lap time"""
         data = [
             {'abbr': 'SSW', 'name': 'Sergey Sirotkin', 'team': 'WILLIAMS MERCEDES', 'lap_time': '00:04:47.294000'},
             {'abbr': 'EOF', 'name': 'Esteban Ocon', 'team': 'FORCE INDIA MERCEDES', 'lap_time': '00:05:46.972000'},
@@ -86,9 +79,8 @@ class ReportDBTest(unittest.TestCase):
                 ['Sergey Sirotkin', 'WILLIAMS MERCEDES', '00:04:47.294000'],
             ])
 
-    @use_test_db
     def test_report_one_driver(self):
-        # src.report.monaco (converting_data.py) sorted the report by lap time
+        """src.report.monaco (converting_data.py) sorted the report by lap time"""
         data = [
             {'abbr': 'SSW', 'name': 'Sergey Sirotkin', 'team': 'WILLIAMS MERCEDES', 'lap_time': '00:04:47.294000'},
             {'abbr': 'EOF', 'name': 'Esteban Ocon', 'team': 'FORCE INDIA MERCEDES', 'lap_time': '00:05:46.972000'},
@@ -101,7 +93,3 @@ class ReportDBTest(unittest.TestCase):
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response.headers["Content-Type"], "application/json")
             self.assertEqual(response.json, ['Esteban Ocon', 'FORCE INDIA MERCEDES', '00:05:46.972000'])
-
-
-if __name__ == '__main__':
-    unittest.main()
