@@ -1,12 +1,8 @@
-from flask import Flask
-from flask_restful import Api, Resource
-from flasgger import Swagger, swag_from
-from app.converting_data import create_report_from_db
+from flasgger import swag_from
+from flask_restful import Resource
 
-VER = 'v2'
-app = Flask(__name__)
-api = Api(app)
-swagger = Swagger(app)
+from app.converting_data import create_report_from_db
+from app.app_settings import *
 
 
 class Report(Resource):
@@ -14,7 +10,7 @@ class Report(Resource):
     @swag_from('swagger/report_order.yml', endpoint='report_order')
     @swag_from('swagger/report_driver.yml', endpoint='report_driver')
     def get(self, order='asc', driver=''):
-        # selection of data type and driver
+        # selection of static type and driver
         if driver:
             for line in create_report_from_db():
                 if driver in line:

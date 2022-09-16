@@ -1,6 +1,6 @@
 parameters:
   - name: order
-    description: 'return data in "asc" or "desc" order'
+    description: 'return static in "asc" or "desc" order'
     in: path
     type: string
     enum: [ 'asc', 'desc' ]
@@ -8,6 +8,6 @@ parameters:
     default: 'asc'
 responses:
   200:
-    description: 'return data in "asc" or "desc" order'
+    description: 'return static in "asc" or "desc" order'
     schema:
       $ref: '/api/v2/report'

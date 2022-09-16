@@ -1,6 +1,5 @@
-from peewee import SqliteDatabase, Model, PrimaryKeyField, TextField, TimeField, ForeignKeyField
-
-db = SqliteDatabase('data/report_monaco_database.db')
+from peewee import Model, PrimaryKeyField, TextField, TimeField, ForeignKeyField
+from app.db_config import db
 
 
 class BaseModel(Model):

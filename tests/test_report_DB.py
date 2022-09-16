@@ -1,5 +1,7 @@
 import unittest
+
 from peewee import SqliteDatabase
+
 from app.models_report import ReportModel, ResultsModel
 from app.report_DB import app
 

@@ -1,6 +1,6 @@
 parameters:
   - name: driver
-    description: 'returning one driver`s data'
+    description: 'returning one driver`s static'
     in: path
     type: string
     enum: [ 'Kevin Magnussen', 'Brendon Hartley' ]
@@ -8,6 +8,6 @@ parameters:
     default: 'Brendon Hartley'
 responses:
   200:
-    description: 'returning one driver`s data'
+    description: 'returning one driver`s static'
     schema:
       $ref: '/api/v1/report/order=asc/driver=<string:driver>'

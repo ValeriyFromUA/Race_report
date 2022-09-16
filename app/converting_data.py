@@ -1,20 +1,14 @@
-from src.report.monaco import build_report, get_abbr_and_time_data
-from pathlib import Path
-from app.models_report import ReportModel, db, ResultsModel
+from src.report.monaco import get_abbr_and_time_data, build_report
 
-START = 'start.log'
-END = 'end.log'
-ABBREVIATIONS = 'abbreviations.txt'
+from app.models_report import ReportModel, ResultsModel
+from app.data_settings import *
+from app.db_config import db
 
-# data/db settings
-DATA_FOLDER_IN_APP = 'data'
-APP_FOLDER = Path(__file__).resolve().parent
-path = Path(APP_FOLDER / DATA_FOLDER_IN_APP)
 data = build_report(path)[1]
 
 
-def preparing_start_end_data():
-    """getting start/end time data, preparing to insert into database"""
+def preparing_start_end_data() -> list:
+    """getting start/end time static, preparing to insert into database"""
     start_end = {}
     start_end_list = []
     for key in get_abbr_and_time_data(path, START):
@@ -29,7 +23,7 @@ def preparing_start_end_data():
 
 
 def create_db_report():
-    """Creating DB and Adding data"""
+    """Creating DB and Adding static"""
     with db:
         db.create_tables([ReportModel])
         ReportModel.insert_many(data).execute()
@@ -38,7 +32,7 @@ def create_db_report():
         ResultsModel.insert_many(preparing_start_end_data()).execute()
 
 
-def create_report_from_db():
+def create_report_from_db() -> list:
     """converting db file to list"""
     data_list = []
     query = ReportModel.select()
