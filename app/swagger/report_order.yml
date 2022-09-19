@@ -1,7 +1,7 @@
 parameters:
   - name: order
     description: 'return static in "asc" or "desc" order'
-    in: path
+    in: PATH
     type: string
     enum: [ 'asc', 'desc' ]
     required: true

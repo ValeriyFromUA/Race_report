@@ -1,7 +1,7 @@
 parameters:
   - name: driver
     description: 'returning one driver`s static'
-    in: path
+    in: PATH
     type: string
     enum: [ 'Kevin Magnussen', 'Brendon Hartley' ]
     required: false

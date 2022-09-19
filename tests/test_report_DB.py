@@ -4,7 +4,7 @@ from peewee import SqliteDatabase
 
 from app.models.report_model import ReportModel
 from app.models.results_model import ResultsModel
-from app.report_DB import app
+from app.report_DB import APP
 
 MODELS = (ReportModel, ResultsModel)
 
@@ -14,8 +14,8 @@ test_db = SqliteDatabase(':memory:')
 class ReportDBTest(unittest.TestCase):
 
     def setUp(self):
-        app.testing = True
-        self.client = app.test_client()
+        APP.testing = True
+        self.client = APP.test_client()
 
         test_db.bind(MODELS, bind_refs=False, bind_backrefs=False)
 

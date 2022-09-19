@@ -19,12 +19,12 @@ def preparing_start_end_data():
 
     start_end = {}
     start_end_list: List[StartEndData] = []
-    for key in get_abbr_and_time_data(path, START):
-        if key in get_abbr_and_time_data(path, END):
+    for key in get_abbr_and_time_data(PATH, START):
+        if key in get_abbr_and_time_data(PATH, END):
             start_end = {
                 'abbr': key,
-                'start_time': get_abbr_and_time_data(path, START)[key],
-                'end_time': get_abbr_and_time_data(path, END)[key],
+                'start_time': get_abbr_and_time_data(PATH, START)[key],
+                'end_time': get_abbr_and_time_data(PATH, END)[key],
             }
         start_end_list.append(start_end)
     return start_end_list
@@ -32,7 +32,7 @@ def preparing_start_end_data():
 
 def create_db_report():
     """Creating DB and Adding static"""
-    data = build_report(path)[1]
+    data = build_report(PATH)[1]
     with db:
         db.create_tables([ReportModel])
         ReportModel.insert_many(data).execute()

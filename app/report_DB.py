@@ -11,7 +11,7 @@ class ReportALL(Resource):
         return create_report_from_db()
 
 
-api.add_resource(ReportALL, f'/api/{VER}/report', endpoint='report')
+API.add_resource(ReportALL, f'/api/{VER}/report', endpoint='report')
 
 
 class ReportOrder(Resource):
@@ -20,7 +20,7 @@ class ReportOrder(Resource):
         return list(reversed(create_report_from_db())) if order == 'desc' else create_report_from_db()
 
 
-api.add_resource(ReportOrder, f'/api/{VER}/report/order=<string:order>', endpoint='report_order')
+API.add_resource(ReportOrder, f'/api/{VER}/report/order=<string:order>', endpoint='report_order')
 
 
 class ReportOneDriver(Resource):
@@ -34,8 +34,8 @@ class ReportOneDriver(Resource):
             return 'Driver_Not_Found', 404
 
 
-api.add_resource(ReportOneDriver, f'/api/{VER}/report/order=<string:order>/driver=<string:driver>',
+API.add_resource(ReportOneDriver, f'/api/{VER}/report/order=<string:order>/driver=<string:driver>',
                  endpoint='report_driver')
 
 if __name__ == '__main__':
-    app.run(debug=True, host='localhost', port=5000)
+    APP.run(debug=True, host='localhost', port=5000)

@@ -1,7 +1,7 @@
 parameters:
   - name: order
     description: 'return static in "asc" order by default'
-    in: path
+    in: PATH
     default: 'asc'
 responses:
   200:
