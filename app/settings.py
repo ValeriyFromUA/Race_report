@@ -1,4 +1,12 @@
+from flask import Flask
+from flask_restful import Api
+from flasgger import Swagger
 from pathlib import Path
+
+VER = 'v2'
+app = Flask(__name__)
+api = Api(app)
+swagger = Swagger(app)
 
 START = 'start.log'
 END = 'end.log'

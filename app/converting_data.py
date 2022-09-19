@@ -1,14 +1,13 @@
 from src.report.monaco import get_abbr_and_time_data, build_report
-
-from app.models_report import ReportModel, ResultsModel
-from app.data_settings import *
+from app.settings import *
 from app.db_config import db
-
-data = build_report(path)[1]
+from app.models.report_model import ReportModel
+from app.models.results_model import ResultsModel
 
 
 def preparing_start_end_data() -> list:
     """getting start/end time static, preparing to insert into database"""
+
     start_end = {}
     start_end_list = []
     for key in get_abbr_and_time_data(path, START):
@@ -24,6 +23,7 @@ def preparing_start_end_data() -> list:
 
 def create_db_report():
     """Creating DB and Adding static"""
+    data = build_report(path)[1]
     with db:
         db.create_tables([ReportModel])
         ReportModel.insert_many(data).execute()
