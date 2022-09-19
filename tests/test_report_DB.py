@@ -1,8 +1,10 @@
 import unittest
+
 from peewee import SqliteDatabase
-from app.report_DB import app
+
 from app.models.report_model import ReportModel
 from app.models.results_model import ResultsModel
+from app.report_DB import app
 
 MODELS = (ReportModel, ResultsModel)
 

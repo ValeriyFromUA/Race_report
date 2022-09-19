@@ -1,4 +1,5 @@
 from peewee import Model
+
 from app.db_config import db
 
 

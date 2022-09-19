@@ -1,4 +1,5 @@
-from peewee import TextField, ForeignKeyField
+from peewee import ForeignKeyField, TextField
+
 from .base_model import BaseModel
 from .report_model import ReportModel
 

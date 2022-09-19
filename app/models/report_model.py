@@ -1,4 +1,5 @@
 from peewee import PrimaryKeyField, TextField, TimeField
+
 from .base_model import BaseModel
 
 
