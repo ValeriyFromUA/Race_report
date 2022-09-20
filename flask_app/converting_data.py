@@ -2,10 +2,9 @@ from typing import List, TypedDict
 
 from src.report.monaco import build_report, get_abbr_and_time_data
 
-from app.db_config import db
-from app.models.report_model import ReportModel
-from app.models.results_model import ResultsModel
-from app.settings import *
+from flask_app.db_config import db
+from flask_app.models import ReportModel, ResultsModel
+from flask_app.settings import *
 
 
 class StartEndData(TypedDict):
@@ -15,7 +14,7 @@ class StartEndData(TypedDict):
 
 
 def preparing_start_end_data():
-    """getting start/end time static, preparing to insert into database"""
+    """Getting start/end time static, preparing to insert into database"""
 
     start_end = {}
     start_end_list: List[StartEndData] = []
@@ -42,7 +41,7 @@ def create_db_report():
 
 
 def create_report_from_db() -> List[tuple]:
-    """converting db file to list"""
+    """Converting db file to list"""
     data_list = []
     query = ReportModel.select()
     for driver in query:

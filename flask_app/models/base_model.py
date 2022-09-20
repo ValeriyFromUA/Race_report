@@ -1,6 +1,6 @@
 from peewee import Model
 
-from app.db_config import db
+from flask_app.db_config import db
 
 
 class BaseModel(Model):

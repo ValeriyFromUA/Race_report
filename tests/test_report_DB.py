@@ -1,14 +1,8 @@
 import unittest
 
-from peewee import SqliteDatabase
-
-from app.models.report_model import ReportModel
-from app.models.results_model import ResultsModel
-from app.report_DB import APP
-
-MODELS = (ReportModel, ResultsModel)
-
-test_db = SqliteDatabase(':memory:')
+from flask_app.models import ReportModel
+from flask_app.report_DB import APP
+from tests import MODELS, test_db
 
 
 class ReportDBTest(unittest.TestCase):

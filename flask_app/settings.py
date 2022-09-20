@@ -8,6 +8,9 @@ VER = 'v2'
 APP = Flask(__name__)
 API = Api(APP)
 SWAGGER = Swagger(APP)
+HOST = 'localhost'
+PORT = 5000
+DEBUG = True
 
 START = 'start.log'
 END = 'end.log'

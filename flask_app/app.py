@@ -1,8 +1,8 @@
 from flasgger import swag_from
 from flask_restful import Resource
 
-from app.converting_data import create_report_from_db
-from app.settings import *
+from flask_app import create_report_from_db
+from flask_app.settings import *
 
 
 class ReportALL(Resource):
@@ -36,6 +36,3 @@ class ReportOneDriver(Resource):
 
 API.add_resource(ReportOneDriver, f'/api/{VER}/report/order=<string:order>/driver=<string:driver>',
                  endpoint='report_driver')
-
-if __name__ == '__main__':
-    APP.run(debug=True, host='localhost', port=5000)
