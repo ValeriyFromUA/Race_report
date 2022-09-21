@@ -1,7 +1,7 @@
 import unittest
 
 from flask_app.models import ReportModel
-from flask_app.report_DB import APP
+from flask_app.app import APP
 from tests import MODELS, test_db
 
 

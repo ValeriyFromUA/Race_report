@@ -1,13 +1,13 @@
 parameters:
   - name: driver
     description: 'returning one driver`s static'
-    in: PATH
+    in: path
     type: string
-    enum: [ 'Kevin Magnussen', 'Brendon Hartley' ]
+    enum: [ 'Fernando Alonso', 'Valtteri Bottas' ]
     required: false
-    default: 'Brendon Hartley'
+    default: 'Fernando Alonso'
 responses:
   200:
     description: 'returning one driver`s static'
     schema:
-      $ref: '/api/v1/report/order=asc/driver=<string:driver>'
+      $ref: '/api/v2/report/order=asc/driver=<string:driver>'
