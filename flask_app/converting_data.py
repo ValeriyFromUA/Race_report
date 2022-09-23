@@ -15,7 +15,6 @@ class StartEndData(TypedDict):
 
 def preparing_start_end_data():
     """Getting start/end time static, preparing to insert into database"""
-
     start_end = {}
     start_end_list: List[StartEndData] = []
     for key in get_abbr_and_time_data(PATH, START):
@@ -31,7 +30,6 @@ def preparing_start_end_data():
 
 def create_db_report():
     """Creating DB and Adding static"""
-
     with db:
         db.create_tables([ReportModel])
         ReportModel.insert_many(build_report(PATH)[1]).execute()
@@ -40,15 +38,15 @@ def create_db_report():
         ResultsModel.insert_many(preparing_start_end_data()).execute()
 
 
-def create_report_from_db() -> List[tuple]:
+def create_report_from_db() -> List[dict]:
     """Converting db file to list"""
     data_list = []
     query = ReportModel.select()
     for driver in query:
-        data_string = (driver.name, driver.team, str(driver.lap_time))
-        data_list.append(data_string)
+        data = {
+            'driver': driver.name,
+            'team': driver.team,
+            'lap_time': str(driver.lap_time)
+        }
+        data_list.append(data)
     return data_list
-
-
-if __name__ == '__main__':
-    create_db_report()

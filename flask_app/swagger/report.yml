@@ -3,8 +3,10 @@ parameters:
     description: 'return static in "asc" order by default'
     in: PATH
     default: 'asc'
+    required: true
 responses:
   200:
     description: 'return static in "asc" order by default'
     schema:
       $ref: '/api/v2/report'
+    examples: ''

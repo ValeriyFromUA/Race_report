@@ -5,6 +5,7 @@ from flask import Flask
 from flask_restful import Api
 
 VER = 'v2'
+ROUTE = f'/api/{VER}/report'
 APP = Flask(__name__)
 API = Api(APP)
 SWAGGER = Swagger(APP)
