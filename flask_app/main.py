@@ -2,7 +2,6 @@ import json
 from flasgger import swag_from
 from flask_restful import Resource
 from flask_app import create_report_from_db
-
 from flask_app.settings import ROUTE, API
 
 
@@ -27,7 +26,7 @@ API.add_resource(ReportOrder, f'{ROUTE}/order=<string:order>', endpoint='report_
 
 class ReportOneDriver(Resource):
     @swag_from('swagger/report_driver.yml', endpoint='report_driver')
-    def get(self, order='asc', driver=''):
+    def get(self, order='asc', driver='') -> json:
         """Selection of static type and driver"""
         if driver != '':
             for line in create_report_from_db():

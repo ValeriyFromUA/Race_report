@@ -1,4 +1,11 @@
 parameters:
+  - name: order
+    description: 'return the report in ascending or descending order, you can use the report for a single driver with either option'
+    in: path
+    type: string
+    enum: [ 'asc', 'desc' ]
+    required: true
+    default: 'asc'
   - name: driver
     description: 'returning one driver`s static'
     in: path
@@ -6,8 +13,15 @@ parameters:
     enum: [ 'Fernando Alonso', 'Valtteri Bottas' ]
     required: false
     default: 'Fernando Alonso'
+Report:
+  type: string
+  example: { ' \"driver\": \"Fernando Alonso\", \"team\": \"MCLAREN RENAULT\", \"lap_time\": \"00:01:12.657000\" ' }
+  $ref: '/api/v2/report/order=asc/driver=<string:driver>'
 responses:
   200:
-    description: 'returning one driver`s static'
-    schema:
-      $ref: '/api/v2/report/order=asc/driver=<string:driver>'
+    description: 'returning one driver`s statistic'
+
+
+
+
+
