@@ -15,7 +15,7 @@
 
 ***
 <h3>Flasgger</h3>
-``` http://localhost:5000/apidocs ```
+```http://localhost:5000/apidocs```
 
 ***
 About:
