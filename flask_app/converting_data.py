@@ -1,7 +1,5 @@
 from typing import TypedDict, List
-
 from src.report.monaco import get_abbr_and_time_data, build_report
-
 from flask_app.db_config import db
 from flask_app.models import ReportModel, ResultsModel
 from flask_app.settings import PATH, START, END

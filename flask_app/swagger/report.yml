@@ -1,12 +1,7 @@
-parameters:
-  - name: order
-    description: 'return static in "asc" order by default'
-    in: PATH
-    default: 'asc'
-    required: true
 responses:
   200:
-    description: 'return static in "asc" order by default'
+    description: 'Return report in "asc" order by default'
     schema:
-      $ref: '/api/v2/report'
-    examples: ''
+      $ref: '#/'
+      example:
+        "[{\"driver\": \"Sebastian Vettel\", \"team\": \"FERRARI\", \"lap_time\": \"00:01:04.415000\"}, {\"driver\": \"Valtteri Bottas\", \"team\": \"MERCEDES\", \"lap_time\": \"00:01:12.434000\"}, {\"driver\": \"Stoffel Vandoorne\", \"team\": \"MCLAREN RENAULT\", \"lap_time\": \"00:01:12.463000\"}]"

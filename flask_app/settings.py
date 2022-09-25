@@ -1,5 +1,4 @@
 from pathlib import Path
-
 from flasgger import Swagger
 from flask import Flask
 from flask_restful import Api

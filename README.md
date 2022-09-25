@@ -1,6 +1,10 @@
 <h3>This program is designed to output the Monaco Race report.</h3>
 
 <h4>Main used libraries in requirements.txt</h4>
+
+``create_db.py`` - for creating your DB
+
+``app.py`` - for starting local-server
 ***
 
 * <h3>Importantly:</h3>
