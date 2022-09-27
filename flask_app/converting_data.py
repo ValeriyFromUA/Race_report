@@ -1,8 +1,10 @@
-from typing import TypedDict, List
-from src.report.monaco import get_abbr_and_time_data, build_report
+from typing import List, TypedDict
+
+from src.report.monaco import build_report, get_abbr_and_time_data
+
 from flask_app.db_config import db
 from flask_app.models import ReportModel, ResultsModel
-from flask_app.settings import PATH, START, END
+from flask_app.settings import END, PATH, START
 
 
 class StartEndData(TypedDict):
@@ -36,15 +38,22 @@ def create_db_report():
         ResultsModel.insert_many(preparing_start_end_data()).execute()
 
 
-def create_report_from_db() -> List[dict]:
+def create_report_from_db() -> List[List[dict]]:
     """Converting db file to list"""
-    data_list = []
+    report_list = []
+    drivers_list = []
     query = ReportModel.select()
     for driver in query:
         data = {
-            'driver': driver.name,
-            'team': driver.team,
-            'lap_time': str(driver.lap_time)
+            driver.abbr: {
+                'driver': driver.name,
+                'team': driver.team,
+                'lap_time': str(driver.lap_time)
+            }}
+        drivers = {
+            'abbr': driver.abbr,
+            'diver': driver.name
         }
-        data_list.append(data)
-    return data_list
+        drivers_list.append(drivers)
+        report_list.append(data)
+    return [report_list, drivers_list]

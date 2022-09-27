@@ -1,7 +1,34 @@
+definitions:
+  Report:
+    type: array
+    items:
+      type: object
+      required: [ abbr, name, team, lap_time ]
+      properties:
+        abbr:
+          description: abbreviation
+          type: string
+          example: "SVF"
+        name:
+          description: driver`s name
+          type: string
+          example: "Sebastian Vettel"
+        team:
+          description: driver`s team
+          type: string
+          example: "FERRARI"
+        lap_time:
+          description: best lap time
+          type: string
+          example: "00:01:04.415000"
+parameters:
+  - name: order
+    description: 'Returns the report in ascending order unless descending (desc) is selected'
+    in: query
+    type: string
+    enum: [ 'desc' ]
 responses:
   200:
-    description: 'Return report in "asc" order by default'
     schema:
-      $ref: '#/'
       example:
-        "[{\"driver\": \"Sebastian Vettel\", \"team\": \"FERRARI\", \"lap_time\": \"00:01:04.415000\"}, {\"driver\": \"Valtteri Bottas\", \"team\": \"MERCEDES\", \"lap_time\": \"00:01:12.434000\"}, {\"driver\": \"Stoffel Vandoorne\", \"team\": \"MCLAREN RENAULT\", \"lap_time\": \"00:01:12.463000\"}]"
+        "[{\"SVF\": {\"driver\": \"Sebastian Vettel\", \"team\": \"FERRARI\", \"lap_time\": \"00:01:04.415000\"}}, {\"VBM\": {\"driver\": \"Valtteri Bottas\", \"team\": \"MERCEDES\", \"lap_time\": \"00:01:12.434000\"}}, {\"SVM\": {\"driver\": \"Stoffel Vandoorne\", \"team\": \"MCLAREN RENAULT\", \"lap_time\": \"00:01:12.463000\"}}"

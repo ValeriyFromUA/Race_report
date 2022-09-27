@@ -1,25 +1,38 @@
+definitions:
+  One_Driver:
+    type: array
+    items:
+      type: object
+      required: [ abbr, name, team, lap_time ]
+      properties:
+        abbr:
+          description: abbreviation
+          type: string
+          example: "SVF"
+        name:
+          description: driver`s name
+          type: string
+          example: "Sebastian Vettel"
+        team:
+          description: driver`s team
+          type: string
+          example: "FERRARI"
+        lap_time:
+          description: best lap time
+          type: string
+          example: "00:01:04.415000"
 parameters:
-  - name: order
-    description: 'return the report in ascending or descending order, you can use the report for a single driver with either option as it has no effect'
-    in: path
-    type: string
-    enum: [ 'asc', 'desc' ]
-    required: true
-    default: 'asc'
   - name: driver
     description: 'returning one driver`s static'
     in: path
     type: string
-    enum: [ 'Fernando Alonso', 'Valtteri Bottas' ]
-    required: false
-    default: 'Fernando Alonso'
+
 responses:
   200:
     schema:
-      $ref: '#/'
       example:
-        "{\"driver\": \"Sergey Sirotkin\", \"team\": \"WILLIAMS MERCEDES\", \"lap_time\": \"00:04:47.294000\"}"
-
-
-
-
+        "{\"SVF\": {\"driver\": \"Sebastian Vettel\", \"team\": \"FERRARI\", \"lap_time\": \"00:01:04.415000\"}}"
+  404:
+    schema:
+      example:
+        Response("Driver not found, please check abbreviation", status=404)
