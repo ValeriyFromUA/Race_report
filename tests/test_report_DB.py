@@ -34,9 +34,9 @@ class ReportDBTest(unittest.TestCase):
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response.headers["Content-Type"], "application/json")
             self.assertEqual(response.json, (
-                '[{"SSW": {"driver": "Sergey Sirotkin", "team": "WILLIAMS MERCEDES", "lap_time": ''"00:04:47.294000"}},'
-                ' {"EOF": {"driver": "Esteban Ocon", "team": "FORCE INDIA ''MERCEDES", "lap_time": "00:05:46.972000"}},'
-                ' {"LHM": {"driver": "Lewis Hamilton", ''"team": "MERCEDES", "lap_time": "00:06:47.540000"}}]'))
+                '[{"driver": "Sergey Sirotkin", "team": "WILLIAMS MERCEDES", "lap_time": ''"00:04:47.294000"},'
+                ' {"driver": "Esteban Ocon", "team": "FORCE INDIA ''MERCEDES", "lap_time": "00:05:46.972000"},'
+                ' {"driver": "Lewis Hamilton", ''"team": "MERCEDES", "lap_time": "00:06:47.540000"}]'))
 
     def test_report_asc(self):
         """src.report.monaco (converting_data.py) sorted the report by lap time"""
@@ -52,9 +52,9 @@ class ReportDBTest(unittest.TestCase):
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response.headers["Content-Type"], "application/json")
             self.assertEqual(response.json, (
-                '[{"SSW": {"driver": "Sergey Sirotkin", "team": "WILLIAMS MERCEDES", "lap_time": ''"00:04:47.294000"}},'
-                ' {"EOF": {"driver": "Esteban Ocon", "team": "FORCE INDIA ''MERCEDES", "lap_time": "00:05:46.972000"}},'
-                ' {"LHM": {"driver": "Lewis Hamilton", ''"team": "MERCEDES", "lap_time": "00:06:47.540000"}}]'))
+                '[{"driver": "Sergey Sirotkin", "team": "WILLIAMS MERCEDES", "lap_time": ''"00:04:47.294000"},'
+                ' {"driver": "Esteban Ocon", "team": "FORCE INDIA ''MERCEDES", "lap_time": "00:05:46.972000"},'
+                ' {"driver": "Lewis Hamilton", ''"team": "MERCEDES", "lap_time": "00:06:47.540000"}]'))
 
     def test_report_desc(self):
         """src.report.monaco (converting_data.py) sorted the report by lap time"""
@@ -70,9 +70,9 @@ class ReportDBTest(unittest.TestCase):
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response.headers["Content-Type"], "application/json")
             self.assertEqual(response.json, (
-                '[{"LHM": {"driver": "Lewis Hamilton", ''"team": "MERCEDES", "lap_time": "00:06:47.540000"}},'
-                ' {"EOF": {"driver": "Esteban Ocon", "team": "FORCE INDIA ''MERCEDES", "lap_time": "00:05:46.972000"}},'
-                ' {"SSW": {"driver": "Sergey Sirotkin", "team": "WILLIAMS MERCEDES", "lap_time": ''"00:04:47.294000"}}]'))
+                '[{"driver": "Lewis Hamilton", ''"team": "MERCEDES", "lap_time": "00:06:47.540000"},'
+                ' {"driver": "Esteban Ocon", "team": "FORCE INDIA ''MERCEDES", "lap_time": "00:05:46.972000"},'
+                ' {"driver": "Sergey Sirotkin", "team": "WILLIAMS MERCEDES", "lap_time": ''"00:04:47.294000"}]'))
 
     def test_report_one_driver(self):
         """src.report.monaco (converting_data.py) sorted the report by lap time"""
@@ -87,8 +87,8 @@ class ReportDBTest(unittest.TestCase):
         with self.subTest():
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response.headers["Content-Type"], "application/json")
-            self.assertEqual(response.json, (
-                '{"EOF": {"driver": "Esteban Ocon", "team": "FORCE INDIA MERCEDES", "lap_time": ''"00:05:46.972000"}}'))
+            self.assertEqual(response.json,
+                             '{"driver": "Esteban Ocon", "team": "FORCE INDIA ''MERCEDES", "lap_time": "00:05:46.972000"}')
 
     def test_report_drivers(self):
         """src.report.monaco (converting_data.py) sorted the report by lap time"""

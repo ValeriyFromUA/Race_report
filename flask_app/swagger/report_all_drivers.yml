@@ -3,18 +3,17 @@ definitions:
     type: array
     items:
       type: object
-      required: [ abbr, name ]
+      required: [ abbr, driver ]
       properties:
         abbr:
           description: abbreviation[key]
           type: string
           example: "SVF"
-        name:
+        driver:
           description: driver`s name
           type: string
           example: "Sebastian Vettel"
 responses:
   200:
     schema:
-      example:
-        "[{\"abbr\": \"SVF\", \"diver\": \"Sebastian Vettel\"}, {\"abbr\": \"VBM\", \"diver\": \"Valtteri Bottas\"}, {\"abbr\": \"SVM\", \"diver\": \"Stoffel Vandoorne\"}"
+      $ref: '#definitions/All_Drivers'

@@ -1,5 +1,7 @@
+import json
 from typing import List, TypedDict
 
+from flask import Response
 from src.report.monaco import build_report, get_abbr_and_time_data
 
 from flask_app.db_config import db
@@ -13,7 +15,13 @@ class StartEndData(TypedDict):
     end_time: str
 
 
-def preparing_start_end_data():
+class Driver(TypedDict):
+    driver: str
+    team: str
+    lap_time: str
+
+
+def preparing_start_end_data() -> List[dict]:
     """Getting start/end time static, preparing to insert into database"""
     start_end = {}
     start_end_list: List[StartEndData] = []
@@ -38,22 +46,41 @@ def create_db_report():
         ResultsModel.insert_many(preparing_start_end_data()).execute()
 
 
-def create_report_from_db() -> List[List[dict]]:
+def create_report_from_db() -> List[dict]:
     """Converting db file to list"""
     report_list = []
-    drivers_list = []
     query = ReportModel.select()
     for driver in query:
         data = {
-            driver.abbr: {
-                'driver': driver.name,
-                'team': driver.team,
-                'lap_time': str(driver.lap_time)
-            }}
+            'driver': driver.name,
+            'team': driver.team,
+            'lap_time': str(driver.lap_time)
+        }
+        report_list.append(data)
+    return report_list
+
+
+def create_drivers_from_db() -> List[dict]:
+    """Converting db file to list"""
+    drivers_list = []
+    query = ReportModel.select()
+    for driver in query:
         drivers = {
             'abbr': driver.abbr,
             'diver': driver.name
         }
         drivers_list.append(drivers)
-        report_list.append(data)
-    return [report_list, drivers_list]
+    return drivers_list
+
+
+def create_one_drivers_from_db(abbr):
+    query = ReportModel.select()
+    for driver in query:
+        if abbr.upper() == driver.abbr:
+            data: Driver = {
+                'driver': driver.name,
+                'team': driver.team,
+                'lap_time': str(driver.lap_time)
+            }
+            return json.dumps(data)
+    return Response("Driver not found, please check abbreviation", status=404)

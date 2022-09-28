@@ -3,13 +3,9 @@ definitions:
     type: array
     items:
       type: object
-      required: [ abbr, name, team, lap_time ]
+      required: [ driver, team, lap_time ]
       properties:
-        abbr:
-          description: abbreviation
-          type: string
-          example: "SVF"
-        name:
+        driver:
           description: driver`s name
           type: string
           example: "Sebastian Vettel"
@@ -30,8 +26,7 @@ parameters:
 responses:
   200:
     schema:
-      example:
-        "{\"SVF\": {\"driver\": \"Sebastian Vettel\", \"team\": \"FERRARI\", \"lap_time\": \"00:01:04.415000\"}}"
+      $ref: '#definitions/One_Driver'
   404:
     schema:
       example:
