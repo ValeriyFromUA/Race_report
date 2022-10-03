@@ -1,4 +1,4 @@
-from typing import List, TypedDict
+from typing import List, Union
 
 from src.report.monaco import build_report, get_abbr_and_time_data
 
@@ -7,28 +7,18 @@ from flask_app.models import ReportModel, ResultsModel
 from flask_app.settings import END, PATH, START
 
 
-class StartEndData(TypedDict):
-    abbr: str
-    start_time: str
-    end_time: str
-
-
-class Driver(TypedDict):
-    driver: str
-    team: str
-    lap_time: str
-
-
 def preparing_start_end_data() -> List[dict]:
     """Getting start/end time static, preparing to insert into database"""
+    start_time = get_abbr_and_time_data(PATH, START)
+    end_time = get_abbr_and_time_data(PATH, END)
     start_end = {}
-    start_end_list: List[StartEndData] = []
-    for key in get_abbr_and_time_data(PATH, START):
-        if key in get_abbr_and_time_data(PATH, END):
+    start_end_list = []
+    for key in start_time:
+        if key in end_time:
             start_end = {
                 'abbr': key,
-                'start_time': get_abbr_and_time_data(PATH, START)[key],
-                'end_time': get_abbr_and_time_data(PATH, END)[key],
+                'start_time': start_time[key],
+                'end_time': end_time[key],
             }
         start_end_list.append(start_end)
     return start_end_list
@@ -71,11 +61,11 @@ def get_drivers_from_db() -> List[dict]:
     return drivers_list
 
 
-def get_one_driver_from_db(abbreviation: str) -> dict:
+def get_one_driver_from_db(abbreviation: str) -> Union[dict, None]:
     """Checking for driver availability and returning data from the database"""
-    query = ReportModel.select().where(ReportModel.abbr == abbreviation.upper())
-    for driver in query:
-        data: Driver = {
+    driver = ReportModel.get_or_none(ReportModel.abbr == abbreviation.upper())
+    if driver:
+        data = {
             'driver': driver.name,
             'team': driver.team,
             'lap_time': str(driver.lap_time)
