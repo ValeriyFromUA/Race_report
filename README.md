@@ -2,7 +2,7 @@
 
 <h4>Main used libraries in requirements.txt</h4>
 
-``create_db.py`` - for creating your DB
+Run ``create_db.py`` - for creating your DB (or open use in app folder ``python create_db.py`` - from CLI)
 
 ``app.py`` - for starting local-server
 ***

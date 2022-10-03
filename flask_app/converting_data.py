@@ -1,7 +1,5 @@
-import json
 from typing import List, TypedDict
 
-from flask import Response
 from src.report.monaco import build_report, get_abbr_and_time_data
 
 from flask_app.db_config import db
@@ -46,7 +44,7 @@ def create_db_report():
         ResultsModel.insert_many(preparing_start_end_data()).execute()
 
 
-def create_report_from_db() -> List[dict]:
+def get_report_from_db() -> List[dict]:
     """Converting db file to list"""
     report_list = []
     query = ReportModel.select()
@@ -60,7 +58,7 @@ def create_report_from_db() -> List[dict]:
     return report_list
 
 
-def create_drivers_from_db() -> List[dict]:
+def get_drivers_from_db() -> List[dict]:
     """Converting db file to list"""
     drivers_list = []
     query = ReportModel.select()
@@ -73,14 +71,13 @@ def create_drivers_from_db() -> List[dict]:
     return drivers_list
 
 
-def create_one_drivers_from_db(abbr):
-    query = ReportModel.select()
+def get_one_driver_from_db(abbreviation: str) -> dict:
+    """Checking for driver availability and returning data from the database"""
+    query = ReportModel.select().where(ReportModel.abbr == abbreviation.upper())
     for driver in query:
-        if abbr.upper() == driver.abbr:
-            data: Driver = {
-                'driver': driver.name,
-                'team': driver.team,
-                'lap_time': str(driver.lap_time)
-            }
-            return json.dumps(data)
-    return Response("Driver not found, please check abbreviation", status=404)
+        data: Driver = {
+            'driver': driver.name,
+            'team': driver.team,
+            'lap_time': str(driver.lap_time)
+        }
+        return data

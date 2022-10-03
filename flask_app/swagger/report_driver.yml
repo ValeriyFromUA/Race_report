@@ -30,4 +30,4 @@ responses:
   404:
     schema:
       example:
-        Response("Driver not found, please check abbreviation", status=404)
+        Driver not found, please check abbreviation"
