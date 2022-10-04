@@ -30,4 +30,8 @@ responses:
   404:
     schema:
       example:
-        Driver not found, please check abbreviation"
+        { "message": "Driver not found, please check abbreviation" }
+  500:
+    schema:
+      example:
+        { "message": "Internal Server Error" }

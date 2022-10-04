@@ -10,7 +10,7 @@ API = Api(APP)
 SWAGGER = Swagger(APP)
 HOST = 'localhost'
 PORT = 5000
-DEBUG = True
+DEBUG = False
 
 START = 'start.log'
 END = 'end.log'

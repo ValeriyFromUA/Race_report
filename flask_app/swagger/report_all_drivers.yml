@@ -17,3 +17,7 @@ responses:
   200:
     schema:
       $ref: '#definitions/All_Drivers'
+  500:
+    schema:
+      example:
+        { "message": "Internal Server Error" }

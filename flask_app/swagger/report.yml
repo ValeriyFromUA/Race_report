@@ -27,3 +27,7 @@ responses:
   200:
     schema:
       $ref: '#definitions/Report'
+  500:
+    schema:
+      example:
+        { "message": "Internal Server Error" }
