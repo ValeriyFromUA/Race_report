@@ -7,8 +7,7 @@ from flasgger import swag_from
 from flask import Response, request, wrappers
 from flask_restful import Resource
 
-from .converting_data import (get_drivers_from_db, get_one_driver_from_db,
-                              get_report_from_db)
+from .converting_data import (get_drivers_from_db, get_one_driver_from_db, get_report_from_db)
 from .settings import API, VER
 from .utils import report_sorting
 
@@ -39,7 +38,7 @@ class ReportOneDriver(Resource):
     @swag_from('swagger/report_driver.yml', endpoint='report_driver')
     def get(self, driver: str) -> Union[str, wrappers.Response]:
         if (walrus_driver := get_one_driver_from_db(driver)) is None:
-            return Response({"message": "Driver not found, please check abbreviation"}, status=404)
+            return Response('{"message": "Driver not found, please check abbreviation"}', status=404)
         return json.dumps(walrus_driver)
 
 

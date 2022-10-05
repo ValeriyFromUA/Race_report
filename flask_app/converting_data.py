@@ -1,4 +1,4 @@
-from typing import List, Union
+from typing import List, Optional, Dict
 
 from src.report.monaco import build_report, get_abbr_and_time_data
 
@@ -7,7 +7,7 @@ from flask_app.models import ReportModel, ResultsModel
 from flask_app.settings import END, PATH, START
 
 
-def preparing_start_end_data() -> List[dict]:
+def preparing_start_end_data() -> List[Dict]:
     """Getting start/end time static, preparing to insert into database"""
     start_time = get_abbr_and_time_data(PATH, START)
     end_time = get_abbr_and_time_data(PATH, END)
@@ -34,7 +34,7 @@ def create_db_report():
         ResultsModel.insert_many(preparing_start_end_data()).execute()
 
 
-def get_report_from_db() -> List[dict]:
+def get_report_from_db() -> List[Dict]:
     """Converting db file to list"""
     report_list = []
     query = ReportModel.select()
@@ -48,7 +48,7 @@ def get_report_from_db() -> List[dict]:
     return report_list
 
 
-def get_drivers_from_db() -> List[dict]:
+def get_drivers_from_db() -> List[Dict]:
     """Converting db file to list"""
     drivers_list = []
     query = ReportModel.select()
@@ -61,7 +61,7 @@ def get_drivers_from_db() -> List[dict]:
     return drivers_list
 
 
-def get_one_driver_from_db(abbreviation: str) -> Union[dict, None]:
+def get_one_driver_from_db(abbreviation: str) -> Optional[Dict]:
     """Checking for driver availability and returning data from the database"""
     driver = ReportModel.get_or_none(ReportModel.abbr == abbreviation.upper())
     if driver:

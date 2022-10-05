@@ -1,22 +1,20 @@
 definitions:
   One_Driver:
-    type: array
-    items:
-      type: object
-      required: [ driver, team, lap_time ]
-      properties:
-        driver:
-          description: driver`s name
-          type: string
-          example: "Sebastian Vettel"
-        team:
-          description: driver`s team
-          type: string
-          example: "FERRARI"
-        lap_time:
-          description: best lap time
-          type: string
-          example: "00:01:04.415000"
+    type: object
+    required: [ driver, team, lap_time ]
+    properties:
+      driver:
+        description: driver`s name
+        type: string
+        example: "Sebastian Vettel"
+      team:
+        description: driver`s team
+        type: string
+        example: "FERRARI"
+      lap_time:
+        description: best lap time
+        type: string
+        example: "00:01:04.415000"
 parameters:
   - name: driver
     description: 'returning one driver`s static'
