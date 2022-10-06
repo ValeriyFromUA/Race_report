@@ -7,7 +7,7 @@ from flasgger import swag_from
 from flask import Response, request, wrappers
 from flask_restful import Resource
 
-from .converting_data import (get_drivers_from_db, get_one_driver_from_db, get_report_from_db)
+from .db_managers import (get_drivers_from_db, get_one_driver_from_db, get_report_from_db)
 from .settings import API, VER
 from .utils import report_sorting
 

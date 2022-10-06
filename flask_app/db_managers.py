@@ -55,7 +55,7 @@ def get_drivers_from_db() -> List[Dict]:
     for driver in query:
         drivers = {
             'abbr': driver.abbr,
-            'diver': driver.name
+            'driver': driver.name
         }
         drivers_list.append(drivers)
     return drivers_list
