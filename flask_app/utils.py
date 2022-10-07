@@ -1,4 +1,4 @@
-from typing import List, Dict
+from typing import Dict, List
 
 
 def report_sorting(order: str, list_with_dict: List[Dict]) -> List[Dict]:

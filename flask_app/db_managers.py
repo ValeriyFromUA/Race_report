@@ -1,4 +1,4 @@
-from typing import List, Optional, Dict
+from typing import Dict, List, Optional
 
 from src.report.monaco import build_report, get_abbr_and_time_data
 
