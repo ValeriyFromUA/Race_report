@@ -102,7 +102,8 @@ class ReportDBTest(unittest.TestCase):
         response = self.client.get("/api/v2/report/drivers/driver=xxx", query_string={"format": "json"})
         with self.subTest():
             self.assertEqual(response.status_code, 404)
-            self.assertEqual(response.data.decode('utf-8'), "Driver not found, please check abbreviation")
+            self.assertEqual(response.data.decode('utf-8'),
+                             '{"message": "Driver not found, please check abbreviation"}')
 
     def test_report_drivers(self):
         """src.report.monaco (db_managers.py) sorted the report by lap time"""
@@ -118,6 +119,6 @@ class ReportDBTest(unittest.TestCase):
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response.headers["Content-Type"], "application/json")
             self.assertEqual(response.json, (
-                '[{"abbr": "SSW", "diver": "Sergey Sirotkin"},'
-                ' {"abbr": "EOF", "diver": "Esteban Ocon"},'
-                ' {"abbr": "LHM", "diver": "Lewis Hamilton"}]'))
+                '[{"abbr": "SSW", "driver": "Sergey Sirotkin"},'
+                ' {"abbr": "EOF", "driver": "Esteban Ocon"},'
+                ' {"abbr": "LHM", "driver": "Lewis Hamilton"}]'))
