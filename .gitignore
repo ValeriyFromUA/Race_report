@@ -6,3 +6,8 @@ flask_app/models/__pycache__
 /flask_app/models/__pycache__
 .pre-commit-config.yaml
 /.pre-commit-config.yaml
+tests/__pycache__
+/tests/__pycache__
+.coverage
+/flask_app/static/__pycache__
+flask_app/static/__pycache__

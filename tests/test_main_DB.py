@@ -15,13 +15,6 @@ class ReportDBTest(unittest.TestCase):
 
         test_db.connect()
         test_db.create_tables(MODELS)
-
-    def tearDown(self):
-        test_db.drop_tables(MODELS)
-        test_db.close()
-
-    def test_report(self):
-        """src.report.monaco (db_managers.py) sorted the report by lap time"""
         data = [
             {'abbr': 'SSW', 'name': 'Sergey Sirotkin', 'team': 'WILLIAMS MERCEDES', 'lap_time': '00:04:47.294000'},
             {'abbr': 'EOF', 'name': 'Esteban Ocon', 'team': 'FORCE INDIA MERCEDES', 'lap_time': '00:05:46.972000'},
@@ -29,6 +22,13 @@ class ReportDBTest(unittest.TestCase):
         ]
         fields = [ReportModel.abbr, ReportModel.name, ReportModel.team, ReportModel.lap_time]
         ReportModel.insert_many(data, fields).execute()
+
+    def tearDown(self):
+        test_db.drop_tables(MODELS)
+        test_db.close()
+
+    def test_report(self):
+        """src.report.monaco (db_managers.py) sorted the report by lap time"""
         response = self.client.get("/api/v2/report", query_string={"format": "json"})
         with self.subTest():
             self.assertEqual(response.status_code, 200)
@@ -40,13 +40,6 @@ class ReportDBTest(unittest.TestCase):
 
     def test_report_asc(self):
         """src.report.monaco (db_managers.py) sorted the report by lap time"""
-        data = [
-            {'abbr': 'SSW', 'name': 'Sergey Sirotkin', 'team': 'WILLIAMS MERCEDES', 'lap_time': '00:04:47.294000'},
-            {'abbr': 'EOF', 'name': 'Esteban Ocon', 'team': 'FORCE INDIA MERCEDES', 'lap_time': '00:05:46.972000'},
-            {'abbr': 'LHM', 'name': 'Lewis Hamilton', 'team': 'MERCEDES', 'lap_time': '00:06:47.540000'},
-        ]
-        fields = [ReportModel.abbr, ReportModel.name, ReportModel.team, ReportModel.lap_time]
-        ReportModel.insert_many(data, fields).execute()
         response = self.client.get("/api/v2/report?order=asc")
         with self.subTest():
             self.assertEqual(response.status_code, 200)
@@ -58,13 +51,6 @@ class ReportDBTest(unittest.TestCase):
 
     def test_report_desc(self):
         """src.report.monaco (db_managers.py) sorted the report by lap time"""
-        data = [
-            {'abbr': 'SSW', 'name': 'Sergey Sirotkin', 'team': 'WILLIAMS MERCEDES', 'lap_time': '00:04:47.294000'},
-            {'abbr': 'EOF', 'name': 'Esteban Ocon', 'team': 'FORCE INDIA MERCEDES', 'lap_time': '00:05:46.972000'},
-            {'abbr': 'LHM', 'name': 'Lewis Hamilton', 'team': 'MERCEDES', 'lap_time': '00:06:47.540000'},
-        ]
-        fields = [ReportModel.abbr, ReportModel.name, ReportModel.team, ReportModel.lap_time]
-        ReportModel.insert_many(data, fields).execute()
         response = self.client.get("/api/v2/report?order=desc")
         with self.subTest():
             self.assertEqual(response.status_code, 200)
@@ -76,13 +62,6 @@ class ReportDBTest(unittest.TestCase):
 
     def test_report_one_driver(self):
         """src.report.monaco (db_managers.py) sorted the report by lap time"""
-        data = [
-            {'abbr': 'SSW', 'name': 'Sergey Sirotkin', 'team': 'WILLIAMS MERCEDES', 'lap_time': '00:04:47.294000'},
-            {'abbr': 'EOF', 'name': 'Esteban Ocon', 'team': 'FORCE INDIA MERCEDES', 'lap_time': '00:05:46.972000'},
-            {'abbr': 'LHM', 'name': 'Lewis Hamilton', 'team': 'MERCEDES', 'lap_time': '00:06:47.540000'},
-        ]
-        fields = [ReportModel.abbr, ReportModel.name, ReportModel.team, ReportModel.lap_time]
-        ReportModel.insert_many(data, fields).execute()
         response = self.client.get("/api/v2/report/drivers/driver=eof", query_string={"format": "json"})
         with self.subTest():
             self.assertEqual(response.status_code, 200)
@@ -92,13 +71,6 @@ class ReportDBTest(unittest.TestCase):
 
     def test_bad_report_one_driver(self):
         """src.report.monaco (db_managers.py) sorted the report by lap time"""
-        data = [
-            {'abbr': 'SSW', 'name': 'Sergey Sirotkin', 'team': 'WILLIAMS MERCEDES', 'lap_time': '00:04:47.294000'},
-            {'abbr': 'EOF', 'name': 'Esteban Ocon', 'team': 'FORCE INDIA MERCEDES', 'lap_time': '00:05:46.972000'},
-            {'abbr': 'LHM', 'name': 'Lewis Hamilton', 'team': 'MERCEDES', 'lap_time': '00:06:47.540000'},
-        ]
-        fields = [ReportModel.abbr, ReportModel.name, ReportModel.team, ReportModel.lap_time]
-        ReportModel.insert_many(data, fields).execute()
         response = self.client.get("/api/v2/report/drivers/driver=xxx", query_string={"format": "json"})
         with self.subTest():
             self.assertEqual(response.status_code, 404)
@@ -107,13 +79,6 @@ class ReportDBTest(unittest.TestCase):
 
     def test_report_drivers(self):
         """src.report.monaco (db_managers.py) sorted the report by lap time"""
-        data = [
-            {'abbr': 'SSW', 'name': 'Sergey Sirotkin', 'team': 'WILLIAMS MERCEDES', 'lap_time': '00:04:47.294000'},
-            {'abbr': 'EOF', 'name': 'Esteban Ocon', 'team': 'FORCE INDIA MERCEDES', 'lap_time': '00:05:46.972000'},
-            {'abbr': 'LHM', 'name': 'Lewis Hamilton', 'team': 'MERCEDES', 'lap_time': '00:06:47.540000'},
-        ]
-        fields = [ReportModel.abbr, ReportModel.name, ReportModel.team, ReportModel.lap_time]
-        ReportModel.insert_many(data, fields).execute()
         response = self.client.get("/api/v2/report/drivers", query_string={"format": "json"})
         with self.subTest():
             self.assertEqual(response.status_code, 200)
