@@ -54,6 +54,8 @@ class TestDBManagers(TestCase):
                                   {'abbr': abbr_I, 'start_time': time_I, 'end_time': time_I},
                                   {'abbr': abbr_E, 'start_time': time_E, 'end_time': time_E}])
 
+        self.assertEqual(mock_func.call_count, 2)
+
     def test_get_report_from_db(self):
         self.assertEqual(get_report_from_db(), self.get_report_list)
 

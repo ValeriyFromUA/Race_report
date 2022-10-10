@@ -60,16 +60,13 @@ class ReportDBTest(unittest.TestCase):
             self.assertEqual(response.json, json.dumps(list(reversed(self.get_report_list))))
 
     def test_report_one_driver(self):
-        """src.report.monaco (db_managers.py) sorted the report by lap time"""
         response = self.client.get("/api/v2/report/drivers/driver=eof")
         with self.subTest():
             self.assertEqual(response.status_code, 200)
-            self.assertEqual(response.headers["Content-Type"], "application/json")
             self.assertEqual(response.json,
                              '{"driver": "Esteban Ocon", "team": "FORCE INDIA ''MERCEDES", "lap_time": "00:05:46.972000"}')
 
     def test_bad_report_one_driver(self):
-        """src.report.monaco (db_managers.py) sorted the report by lap time"""
         response = self.client.get("/api/v2/report/drivers/driver=xxx")
         with self.subTest():
             self.assertEqual(response.status_code, 404)
@@ -77,9 +74,7 @@ class ReportDBTest(unittest.TestCase):
                              '{"message": "Driver not found, please check abbreviation"}')
 
     def test_report_drivers(self):
-        """src.report.monaco (db_managers.py) sorted the report by lap time"""
         response = self.client.get("/api/v2/report/drivers")
         with self.subTest():
             self.assertEqual(response.status_code, 200)
-            self.assertEqual(response.headers["Content-Type"], "application/json")
             self.assertEqual(response.json, json.dumps(self.get_drivers_list))
