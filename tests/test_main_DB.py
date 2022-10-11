@@ -64,7 +64,8 @@ class ReportDBTest(unittest.TestCase):
         with self.subTest():
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response.json,
-                             '{"driver": "Esteban Ocon", "team": "FORCE INDIA ''MERCEDES", "lap_time": "00:05:46.972000"}')
+                             '{"driver": "Esteban Ocon", "team": "FORCE INDIA MERCEDES",'
+                             ' "lap_time": "00:05:46.972000"}')
 
     def test_bad_report_one_driver(self):
         response = self.client.get("/api/v2/report/drivers/driver=xxx")
