@@ -2,9 +2,9 @@ from typing import Dict, List, Optional
 
 from src.report.monaco import build_report, get_abbr_and_time_data
 
-from flask_app.db_config import db
-from flask_app.models import ReportModel, ResultsModel
-from flask_app.settings import END, PATH, START
+from .db_config import db
+from .models import ReportModel, ResultsModel
+from .settings import END, PATH, START
 
 
 def preparing_start_end_data() -> List[Dict]:

@@ -15,6 +15,18 @@ class TestDBManagers(TestCase):
         {'abbr': 'ZZZ', 'name': 'Lewis Hamilton', 'team': 'MERCEDES', 'lap_time': '00:06:47.540000'},
     ]
 
+    def setUp(self):
+        test_db.bind(MODELS, bind_refs=False, bind_backrefs=False)
+        test_db.connect()
+        test_db.create_tables(MODELS)
+
+        fields = [ReportModel.abbr, ReportModel.name, ReportModel.team, ReportModel.lap_time]
+        ReportModel.insert_many(self.data, fields).execute()
+
+    def tearDown(self):
+        test_db.drop_tables(MODELS)
+        test_db.close()
+
     def get_report_list(self) -> List[Dict]:
         report_list = []
         for el in self.data:
@@ -35,18 +47,6 @@ class TestDBManagers(TestCase):
             }
             drivers_list.append(drivers)
         return drivers_list
-
-    def setUp(self):
-        test_db.bind(MODELS, bind_refs=False, bind_backrefs=False)
-        test_db.connect()
-        test_db.create_tables(MODELS)
-
-        fields = [ReportModel.abbr, ReportModel.name, ReportModel.team, ReportModel.lap_time]
-        ReportModel.insert_many(self.data, fields).execute()
-
-    def tearDown(self):
-        test_db.drop_tables(MODELS)
-        test_db.close()
 
     @patch('flask_app.db_managers.get_abbr_and_time_data')
     def test_preparing_start_end_data(self, mock_func):
