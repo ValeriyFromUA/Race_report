@@ -1,0 +1,23 @@
+definitions:
+  All_Drivers:
+    type: array
+    items:
+      type: object
+      required: [ abbr, driver ]
+      properties:
+        abbr:
+          description: abbreviation[key]
+          type: string
+          example: "SVF"
+        driver:
+          description: driver`s name
+          type: string
+          example: "Sebastian Vettel"
+responses:
+  200:
+    schema:
+      $ref: '#definitions/All_Drivers'
+  500:
+    schema:
+      example:
+        { "message": "Internal Server Error" }
